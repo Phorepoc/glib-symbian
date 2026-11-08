@@ -13,3 +13,9 @@ mk libphegthread.a $X/gthread/.libs/*.o
 mk libpheffi.a $(ls /wk/out/ffi/*.o | grep -v win64)
 [ -d $X/gio/.libs ] && mk libphegio.a $X/gio/.libs/*.o $X/gio/xdgmime/.libs/*.o $X/gio/gvdb/.libs/*.o
 true
+# the GModule backend test and the symbol tables (gen_symtab.py: resource/gmodule/<dll>.sym of every DLL of this repository + the test plug-in)
+mkdir -p /wk/out/gm $O/gmodule
+$CC $CF $INC -c /h/os/src/phegmoduletest/phegmoduletest_main.c -o /wk/out/gm/phegmoduletest_main.o || echo "GMODULE TEST COMPILE FAIL"
+rm -f $O/libphegmoduletest.a; ar rcs $O/libphegmoduletest.a /wk/out/gm/phegmoduletest_main.o; echo "libphegmoduletest.a built"
+for d in /h/os/src/*/*.def; do n=$(basename $d .def); python3 /h/recipes/gen_symtab.py $d $O/gmodule/$n.sym > /dev/null; done; echo "symbol tables: $(ls $O/gmodule | wc -l)"
+true

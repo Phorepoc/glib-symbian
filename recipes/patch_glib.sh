@@ -139,3 +139,6 @@ PY
 fi
 # diagnostic (kept: harmless): name the type when g_object_new_internal finds no notify queue
 python3 /h/recipes/patch_gobject_diag.py
+# GModule over RLibrary + a per-DLL symbol table instead of dlopen (overlay/phe_gmodule_symbian.c replaces gmodule-dl.c; phegmodule_rlib.cpp is the RLibrary half)
+M=/wk/glib-2.56.4/gmodule/gmodule-dl.c
+grep -q phe_gmodule_symbian $M && cmp -s $M /h/overlay/phe_gmodule_symbian.c || { [ -f $M.orig ] || cp $M $M.orig; cp /h/overlay/phe_gmodule_symbian.c $M; }

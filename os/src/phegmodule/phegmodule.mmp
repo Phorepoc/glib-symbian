@@ -14,5 +14,6 @@ OS_LAYER_SYSTEMINCLUDE_SYMBIAN
 OS_LAYER_LIBC_SYSTEMINCLUDE
 SOURCEPATH		.
 SOURCE			phegmodule_dll.c
+SOURCE			phegmodule_rlib.cpp
 LIBRARY			euser.lib libc.lib libdl.lib pheglib.lib
 SMPSAFE

@@ -1,0 +1,3 @@
+EXPORTS
+	plugin_add @ 1 NONAME
+	plugin_name @ 2 NONAME
