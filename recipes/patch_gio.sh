@@ -19,3 +19,15 @@ grep -q PHE_NONETLINK $G/gnetworkmonitornetlink.c || { { echo '/* PHE_NONETLINK 
 sed -i '/PHE_ENVIRON/d' $G/gapplicationcommandline.c
 sed -i '0,/^#include "config.h"/s//#include "config.h"\n#include <stdlib.h>\n#include <unistd.h>\n#include <string.h>\n#undef environ \/* PHE_ENVIRON *\//' $G/gapplicationcommandline.c
 grep -c "PHE_" $G/gunixmounts.c $G/gnetworkmonitornetlink.c $G/gapplicationcommandline.c
+# the local file monitor: RFs::NotifyChange in a thread (overlay/phe_filemonitor.c appended to glocalfilemonitor.c, phegio_notify.cpp is the platform half), registered with the other built-in implementations
+sed -i '/^\/\* PHE_FILEMONITOR \*\/$/,$d' $G/glocalfilemonitor.c      # (re-applied from the overlay every time, so a change of the overlay takes effect)
+{ echo '/* PHE_FILEMONITOR */'; cat /h/overlay/phe_filemonitor.c; } >> $G/glocalfilemonitor.c
+grep -q g_phe_file_monitor_get_type $G/giomodule.c || python3 - <<'PY'
+p = "/wk/glib-2.56.4/gio/giomodule.c"
+s = open(p, newline="").read()
+a = "      g_type_ensure (g_null_settings_backend_get_type ());"
+assert a in s
+s = s.replace(a, "      g_type_ensure (g_phe_file_monitor_get_type ());\n" + a, 1)
+s = s.replace("extern GType g_inotify_file_monitor_get_type (void);", "extern GType g_inotify_file_monitor_get_type (void);\nextern GType g_phe_file_monitor_get_type (void);", 1)
+open(p, "w", newline="\n").write(s)
+PY

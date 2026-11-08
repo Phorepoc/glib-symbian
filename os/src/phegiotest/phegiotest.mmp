@@ -1,0 +1,13 @@
+TARGET			phegiotest.exe
+TARGETTYPE		exe
+UID				0x1000007a 0xE7015793
+CAPABILITY		all -tcb
+VENDORID		0
+EPOCSTACKSIZE	0x100000
+EPOCHEAPSIZE	0x100000 0x4000000
+OS_LAYER_SYSTEMINCLUDE_SYMBIAN
+OS_LAYER_LIBC_SYSTEMINCLUDE
+SOURCEPATH		.
+SOURCE			phegiotest.cpp
+LIBRARY			euser.lib libc.lib libm.lib libpthread.lib pheglib.lib phegobject.lib phegio.lib
+SMPSAFE

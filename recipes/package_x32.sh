@@ -18,4 +18,7 @@ mkdir -p /wk/out/gm $O/gmodule
 $CC $CF $INC -c /h/os/src/phegmoduletest/phegmoduletest_main.c -o /wk/out/gm/phegmoduletest_main.o || echo "GMODULE TEST COMPILE FAIL"
 rm -f $O/libphegmoduletest.a; ar rcs $O/libphegmoduletest.a /wk/out/gm/phegmoduletest_main.o; echo "libphegmoduletest.a built"
 for d in /h/os/src/*/*.def; do n=$(basename $d .def); python3 /h/recipes/gen_symtab.py $d $O/gmodule/$n.sym > /dev/null; done; echo "symbol tables: $(ls $O/gmodule | wc -l)"
+# the GIO file monitor test
+$CC $CF $INC -I$S/gio -I$X/gio -c /h/os/src/phegiotest/phegiotest_main.c -o /wk/out/gm/phegiotest_main.o || echo "GIO TEST COMPILE FAIL"
+rm -f $O/libphegiotest.a; ar rcs $O/libphegiotest.a /wk/out/gm/phegiotest_main.o; echo "libphegiotest.a built"
 true
