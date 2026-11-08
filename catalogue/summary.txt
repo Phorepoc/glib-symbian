@@ -1,0 +1,1 @@
+GLib 2.56, GObject, GModule, GThread and GIO: the C library that GTK, D-Bus and Hildon programs build on

@@ -1,3 +1,8 @@
-hildon-symbian: build recipes for GLib (LGPL-2.1+), libffi (MIT) and later libhildon / libhildondesktop (LGPL-2.1) as
-app-private libraries for Phorepoc OS. Our recipe files are BSD-2-Clause. The libraries are downloaded, never copied here;
-they stay in their own replaceable DLLs. hildon-desktop and the Leste themes are GPL and are NOT used.
+glib-symbian: GLib 2.56, GObject, GModule, GThread and GIO: the C library that GTK, D-Bus and Hildon programs build on.
+Copyright The Phorepoc Authors (see AUTHORS). Our files (os/src, recipes, overlay, registry) are BSD-2-Clause (LICENSE).
+
+Libraries built here, each in its own replaceable DLL, downloaded and never copied into this repository (recipes/pins.sh); licence texts are in LICENSES/:
+  - GLib, GObject, GModule, GThread, GIO: LGPL-2.1-or-later (LICENSES/glib-COPYING.txt)
+  - libffi 3.4.6: MIT (LICENSES/libffi-LICENSE.txt)
+
+The package installs LICENSE, NOTICE, SOURCE-OFFER.txt and LICENSES/* to \resource\glib-symbian\licences\.
