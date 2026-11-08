@@ -1,7 +1,7 @@
-> **Split note (2026-11-07).** This stack used to live in one repository, hildon-symbian. It is now four, installable separately from the Catalogue:
+> **Split note (2026-11-07).** This stack used to live in one repository, hildon-ui. It is now four, installable separately from the Catalogue:
 > `glib-symbian` (GLib 2.56.4, GObject, GModule, GThread, GIO, libffi) -> `gtk-symbian` (pixman, freetype, harfbuzz, fontconfig, cairo, pango, gdk-pixbuf, ATK, GDK with the Symbian backend, GTK 2.24.33)
-> and `dbus-symbian` (libdbus, dbus-glib; needs glib-symbian only) -> `hildon-symbian` (libhildon, libhildondesktop; needs gtk-symbian and dbus-symbian).
-> History before the split is in hildon-symbian (up to the commit that says "split"); the text below is the GLib part of the old README, kept for its findings.
+> and `dbus-symbian` (libdbus, dbus-glib; needs glib-symbian only) -> `hildon-ui` (libhildon, libhildondesktop; needs gtk-symbian and dbus-symbian).
+> History before the split is in hildon-ui (up to the commit that says "split"); the text below is the GLib part of the old README, kept for its findings.
 
 # glib-symbian
 

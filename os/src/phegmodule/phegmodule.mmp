@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: BSD-2-Clause
 //
 // phegmodule.mmp -- OURS: the x32 GLib 2.56.4 (LGPL 2.1+) library "phegmodule" as its OWN replaceable DLL, app-private under a new name so the
-// ROM's old ossrv glib is never touched. Code = prebuilt archive (hildon-symbian/recipes), exports = phegmodule.def (gen_defs.py).
+// ROM's old ossrv glib is never touched. Code = prebuilt archive (hildon-ui/recipes), exports = phegmodule.def (gen_defs.py).
 TARGET			phegmodule.dll
 TARGETTYPE		dll
 UID				0x1000008d 0xE7015774

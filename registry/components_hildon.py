@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: BSD-2-Clause
 
 """components_hildon -- the Hildon groundwork's components (merged into core's registry when this repository is a layer, like
-codecpack: PHOREPOC_ADAPTATIONS=<board adaptations>:<path to hildon-symbian>). Paths are relative to the merged OS tree;
+codecpack: PHOREPOC_ADAPTATIONS=<board adaptations>:<path to hildon-ui>). Paths are relative to the merged OS tree;
 ".hildon/..." must resolve to $PHOREPOC_BUILD/hildon/ (the pdk's paths.resolve needs that prefix added, like ".codecpack/").
 recipes/ builds the archives; nothing here is in an OS image -- Hildon is a Catalogue download.
 

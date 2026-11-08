@@ -2,7 +2,7 @@
 # native_config.sh -- IN the phorepoc-x86 image (private volume hildon-wk mounted at /wk): unpack GLib and run its configure
 # NATIVELY (the x32 glibc dev files are not in the image, so a cross configure cannot link-test). The resulting config.h is the
 # starting point for the x32/Open C one (gen_config.py -- NOT WRITTEN YET, see README.md "Status"). Verified to configure OK.
-#   docker run --rm -v <hildon-symbian>:/h -v hildon-wk:/wk phorepoc-x86 bash /h/recipes/native_config.sh
+#   docker run --rm -v <hildon-ui>:/h -v hildon-wk:/wk phorepoc-x86 bash /h/recipes/native_config.sh
 set -eu
 . /h/recipes/pins.sh
 cd /wk
