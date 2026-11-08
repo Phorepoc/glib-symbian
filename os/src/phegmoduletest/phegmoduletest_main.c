@@ -33,7 +33,12 @@ phe_gmodule_test_main (void)
   CHECK (m == NULL, "opening a missing DLL fails");
   LOG ("[phegmoduletest] error text: %s", g_module_error ());
   m = g_module_open (NULL, G_MODULE_BIND_LAZY);
-  CHECK (m == NULL, "the main program has no symbol lookup (documented limit)");
+  CHECK (m != NULL, "the main program can be opened (g_module_open (NULL))");
+  if (m) {
+    CHECK (!g_module_symbol (m, "main", &p), "no symbols are found in the main program (documented limit)");
+    LOG ("[phegmoduletest] error text: %s", g_module_error ());
+    g_module_close (m);
+  }
   LOG ("[phegmoduletest] done: %d passed, %d failed", ok_n, fail_n);
   return fail_n ? 1 : 0;
 }

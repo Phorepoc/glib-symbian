@@ -4,7 +4,7 @@
  * "name @ N NONAME"), so a symbol NAME is resolved through a table the DLL ships beside it: the symbol table file  <drive>:/resource/gmodule/<dll name>.sym , one "name ordinal" per line,
  * generated from the DLL's own .def by recipes/gen_symtab.py (the packaging step of every repository that has DLLs). g_module_symbol (module, name) works on any DLL that has one.
  * File names: the module "path/to/foo.so", "foo.dll" or "foo" is the DLL foo.dll (directory ignored: the loader searches \sys\bin on every drive). g_module_open (NULL) (the main
- * program) is answered with an error: a program's symbols cannot be enumerated here. */
+ * program) gives a handle on which every lookup answers "undefined symbol": a program's symbols cannot be enumerated here. */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -82,8 +82,8 @@ _g_module_open (const gchar *file_name, gboolean bind_lazy, gboolean bind_local)
 static gpointer
 _g_module_self (void)
 {
-  g_module_set_error ("the symbols of the main program cannot be looked up on this system (only those of a DLL with a symbol table)");
-  return NULL;
+  /* the main program: a module handle with no library; a program's symbols cannot be enumerated here, so every lookup answers "undefined symbol" (as for a program that exports nothing) */
+  return g_new0 (PheModule, 1);
 }
 
 static void
@@ -91,7 +91,7 @@ _g_module_close (gpointer handle, gboolean is_unref)
 {
   PheModule *m = handle;
   (void) is_unref;
-  phe_lib_close (m->lib);
+  if (m->lib) phe_lib_close (m->lib);
   if (m->symbols) g_hash_table_destroy (m->symbols);
   g_free (m->dll); g_free (m);
 }
@@ -100,6 +100,11 @@ static gpointer
 _g_module_symbol (gpointer handle, const gchar *symbol_name)
 {
   PheModule *m = handle; gpointer ord, p;
+  if (!m->lib) {
+    gchar *msg = g_strdup_printf ("undefined symbol: %s (the main program exports none on this system)", symbol_name);
+    g_module_set_error (msg); g_free (msg);
+    return NULL;
+  }
   if (!m->symbols) {
     gchar *msg = g_strdup_printf ("%s has no symbol table (resource/gmodule/%s.sym)", m->dll, m->dll);
     g_module_set_error (msg); g_free (msg);
