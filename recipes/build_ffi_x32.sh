@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright The Phorepoc Authors
+# SPDX-License-Identifier: BSD-2-Clause
 # build_ffi_x32.sh -- IN phorepoc-x86 (/wk): libffi 3.4.6 for x32 by hand with pp-gcc -> /wk/out/libffi.a. GLib only needs ffi_call
 # (g_cclosure_marshal_generic), so closures.c / tramp.c are left out. ffi.h/fficonfig.h come from native_build.sh's configure.
 set -u

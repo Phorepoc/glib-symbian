@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Copyright The Phorepoc Authors
+# SPDX-License-Identifier: BSD-2-Clause
 # gen_symtab.py <dll>.def <out>.sym -- the symbol table the GModule backend reads (overlay/phe_gmodule_symbian.c): "name ordinal" per line, from the DLL's own frozen .def
 # ("name @ N NONAME [DATA]"). Install it as resource/gmodule/<dll name>.sym next to the DLL.
 import re, sys

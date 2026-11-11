@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: BSD-2-Clause */
 /* phegmoduletest_main.c -- GModule on this system: open a plug-in DLL, look its exports up by NAME, call them, fail cleanly for a missing symbol / DLL, close. BSD-2-Clause (Phorepoc). */
 #include <stdio.h>
 #include <string.h>

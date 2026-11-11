@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright The Phorepoc Authors
+# SPDX-License-Identifier: BSD-2-Clause
 # build_cxxheaders_x32.sh -- IN phorepoc-x86 (volume at /wk, the MAIN repo mounted READ-WRITE at /repo: openc_cflags.py writes its cache there):
 # the libstdc++ HEADERS (GCC 13.3 source, configured for x32 over Open C by the main repo's tools/phorepoc-x86/cxxrt/build_libstdcxx.sh -- its first 41 lines: unpack, the ph-g++ wrapper,
 # configure, `make -C include`) into /wk/lsc/build/include. Only the header tree is wanted: HarfBuzz >= 4 (std::unique_ptr / std::function / <atomic> ...) and Pango's C++-free

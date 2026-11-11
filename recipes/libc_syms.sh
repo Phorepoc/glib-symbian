@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright The Phorepoc Authors
+# SPDX-License-Identifier: BSD-2-Clause
 # libc_syms.sh -- IN phorepoc-x86 (/repo = Symbian-ReverseEngineered, :ro; /wk): the symbols Open C exports on x32 (libc, libm, libpthread, libdl
 # of the main repo's x32 build) -> /wk/libc_syms.txt, the filter gen_config.py applies to GLib's HAVE_* macros.
 set -eu

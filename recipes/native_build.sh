@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright The Phorepoc Authors
+# SPDX-License-Identifier: BSD-2-Clause
 # native_build.sh -- IN phorepoc-x86 (volumes hildon-wk:/wk, repo:/h): build libffi + GLib NATIVELY to get the generated sources
 # (gmarshal.c, enum types, glib-genmarshal...) and ffi.h. Needs native_config.sh run first.
 set -u

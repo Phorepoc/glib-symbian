@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: BSD-2-Clause */
 /* fnmatch.h -- stand-in: Open C has no fnmatch(); phe_posix_stubs.c has a small one (* ? [set] and backslash; FNM_CASEFOLD). GIO's xdgmime globbing uses it. */
 #ifndef PHE_FNMATCH_H
 #define PHE_FNMATCH_H

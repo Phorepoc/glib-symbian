@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: BSD-2-Clause */
 /* sys/statvfs.h -- stand-in: Open C has none; GIO's glocalfile.c uses statvfs() for filesystem info. The functions fail with ENOSYS (phe_posix_stubs.c). */
 #ifndef PHE_SYS_STATVFS_H
 #define PHE_SYS_STATVFS_H

@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: BSD-2-Clause */
 /* sys/sysmacros.h -- stand-in (Open C has none): GIO only needs major()/minor() for device numbers. */
 #ifndef PHE_SYSMACROS_H
 #define PHE_SYSMACROS_H

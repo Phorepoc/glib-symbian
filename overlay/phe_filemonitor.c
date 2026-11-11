@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: LGPL-2.1-or-later */
 /* phe_filemonitor.c -- the GIO local file monitor of this system (appended to gio/glocalfilemonitor.c by patch_gio.sh). LGPL-2.1+ with GLib. OURS (Phorepoc).
  *
  * GIO has no monitor implementation for Open C (inotify, kqueue, FEN, Win32 are all elsewhere), so g_file_monitor_file () / g_file_monitor_directory () returned NULL and nothing that

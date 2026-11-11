@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Copyright The Phorepoc Authors
+# SPDX-License-Identifier: BSD-2-Clause
 # gen_config.py <native-config.h> <native-glibconfig.h> <libc_syms.txt> <stdapis-dir> <out-dir>
 # Native (x86_64 glibc) GLib config -> x32 / Open C config.h + glibconfig.h. Run in the phorepoc-x86 image.
 import os, re, sys

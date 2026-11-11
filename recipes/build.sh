@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright The Phorepoc Authors
+# SPDX-License-Identifier: BSD-2-Clause
 # build.sh -- GLib 2.56.4 + libffi + GIO for the x32 PC image: from the pins to the archives. Host side, Git Bash, Docker Desktop up.
 #
 #   REPO=<Symbian-ReverseEngineered checkout>  bash recipes/build.sh [steps]

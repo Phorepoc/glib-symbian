@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: BSD-2-Clause */
 /* phegiotest_main.c -- GIO file monitors on this system (overlay/phe_filemonitor.c: RFs::NotifyChange): a watched file that is rewritten, a watched directory in which a file is created and
  * deleted; every change must arrive as a signal in the main loop. BSD-2-Clause (Phorepoc). */
 #include <stdio.h>

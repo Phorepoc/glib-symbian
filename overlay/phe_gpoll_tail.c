@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: LGPL-2.1-or-later */
 
 /* ---- Phorepoc: g_poll over Open C. Wakeups (fake ids >= PHE_WAKE_BASE) are handled in-process, real descriptors by select(). ---- */
 #define PHE_WAKE_BASE 0x40000000

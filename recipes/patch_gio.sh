@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright The Phorepoc Authors
+# SPDX-License-Identifier: BSD-2-Clause
 # patch_gio.sh -- x32 / Open C source patches to GIO (GLib 2.56.4), idempotent; run in the container before the x32 compile of gio.
 set -eu
 G=/wk/glib-2.56.4/gio

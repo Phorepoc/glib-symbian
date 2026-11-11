@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright The Phorepoc Authors
+# SPDX-License-Identifier: BSD-2-Clause
 # build_gio_x32.sh -- IN phorepoc-x86 (volumes hildon-wk:/wk, repo :ro at /repo, this repo at /h): GIO of GLib 2.56.4 for x32/Open C.
 # Needs build.sh's steps up to `objects` (the native tree /wk/nat, the x32 tree /wk/x32, the wrappers). 1) native `make -C gio` for the generated
 # sources (gdbus-codegen needs overlay/pyshim: no distutils in Python 3.12; CFLAGS=-w: gcc 13 -Werror=format-overflow), 2) copy gio into the x32

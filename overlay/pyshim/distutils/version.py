@@ -1,3 +1,5 @@
+# Copyright The Phorepoc Authors
+# SPDX-License-Identifier: BSD-2-Clause
 import re
 class LooseVersion:
     def __init__(self, v): self.v = [int(x) if x.isdigit() else x for x in re.split(r"(\d+)", str(v)) if x and x != "."]

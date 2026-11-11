@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Copyright The Phorepoc Authors
+# SPDX-License-Identifier: BSD-2-Clause
 # patch_gobject_diag.py -- IN the container: GObject 2.56.4 gobject.c, idempotent. Name the type (and the class flags) when
 # g_object_new_internal finds no notify queue, right before its g_assert (nqueue != NULL).
 p = "/wk/glib-2.56.4/gobject/gobject.c"

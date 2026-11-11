@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: LGPL-2.1-or-later */
 
 /* ---- Phorepoc: fork_exec_with_pipes over posix_spawn (Open C has no fork). Appended to gspawn.c by patch_glib.sh; the original
  * (renamed fork_exec_with_pipes_unused) stays for reference. Same contract as GLib's, minus what spawning a process cannot do:

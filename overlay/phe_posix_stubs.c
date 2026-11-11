@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: BSD-2-Clause */
 /* phe_posix_stubs.c -- POSIX calls Open C does not have. They fail cleanly with ENOSYS (GLib's gspawn.c / gtestutils.c then report
  * "Function not implemented" instead of the link stubbing them into a crash): fork/exec (a Symbian process cannot fork) and setrlimit. */
 #include <errno.h>

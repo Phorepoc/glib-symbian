@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: BSD-2-Clause */
 /* libintl.h -- stand-in: Open C has no gettext; GLib is built without NLS, text passes through unchanged. */
 #ifndef PHE_LIBINTL_H
 #define PHE_LIBINTL_H

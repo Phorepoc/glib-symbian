@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: BSD-2-Clause */
 /* phe_glib_compat.h -- force-included when compiling GLib 2.56 for Open C (P.I.P.S.): what that libc lacks. */
 #ifndef PHE_GLIB_COMPAT_H
 #define PHE_GLIB_COMPAT_H

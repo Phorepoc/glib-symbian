@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: BSD-2-Clause */
 /* phe_respath.h -- where an installed package's resources are. BSD-2-Clause (Phorepoc).
  * A package installed through the Catalogue puts its resources (\resource\...) on its install drive (C:, E:, ...), while the same files of a ROM build are on Z:. A program asks
  * phe_res ("resource/dbus/session.conf") and gets "<drive>:/resource/dbus/session.conf" of the first drive that has the file (installed copies first, the ROM last).

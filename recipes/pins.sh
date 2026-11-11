@@ -1,3 +1,5 @@
+# Copyright The Phorepoc Authors
+# SPDX-License-Identifier: BSD-2-Clause
 # pins.sh -- exact upstream versions + checksums (verified 2026-11-06)
 GLIB_VER=2.56.4
 GLIB_SHA256=27f703d125efb07f8a743666b580df0b4095c59fc8750e8890132c91d437504c

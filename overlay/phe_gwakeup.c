@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: BSD-2-Clause */
 /* phe_gwakeup.c -- GWakeup for Open C, replacing glib/gwakeup.c. Open C (P.I.P.S.) has neither eventfd, pipe() (ENOENT here) nor
  * socketpair(), so a wakeup is an in-process flag + one global condition variable; the patched g_poll (gpoll.c, see patch_glib.sh)
  * waits on that condition when no real descriptor is polled and slices select() otherwise. GPollFD.fd of a wakeup = a fake id >= PHE_WAKE_BASE.

@@ -1,3 +1,5 @@
+/* Copyright The Phorepoc Authors */
+/* SPDX-License-Identifier: LGPL-2.1-or-later */
 /* phe_gmodule_symbian.c -- the GModule backend for this system, replacing gmodule-dl.c (patch_glib.sh copies it over gmodule/gmodule-dl.c). LGPL-2.1+ with GLib. OURS (Phorepoc).
  *
  * A module is a DLL loaded with RLibrary::Load (phegmodule_rlib.cpp: Open C has no dlopen for E32 DLLs). The DLLs of this system export by ORDINAL only (frozen .def files,

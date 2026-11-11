@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright The Phorepoc Authors
+# SPDX-License-Identifier: BSD-2-Clause
 # build_x32.sh -- IN phorepoc-x86 (volumes hildon-wk:/wk, repo:/repo:ro, this repo:/h): GLib objects for x32/Open C with pp-gcc
 # (the wrappers must exist: mk_pure_wrappers.sh into /wk/lsc). Needs native_build.sh + gen_config.py output in /wk/x32cfg.
 # Copies the native build tree to /wk/x32 (generated sources, Makefiles), swaps in the x32 config, rebuilds only objects.
