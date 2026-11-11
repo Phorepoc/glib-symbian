@@ -30,8 +30,8 @@ COMPONENTS = {
     "phecairowin": dict(mmp=os.path.join(OS_ROOT, "src/phecairowin/phecairowin.mmp"), x32_flags=["-I.hildon/include"]),
     "phegio": dict(_dll("phegio", ["libphegio"]), x32_archives=[".hildon/libphegio.a", "thirdparty/x86/cxxrt/libphcompat.a", "thirdparty/x86/cxxrt/libgcc.a"]),
     # the console test EXE: links the four DLLs through its mmp's LIBRARY line (SSM_TEST=pheglibtest)
-    # the GIO test EXE (file monitors, the zlib converters over libz.dll): copied to the C: drive for a run, not packaged
-    "phegiotest": dict(mmp=os.path.join(OS_ROOT, "src/phegiotest/phegiotest.mmp"), test=True, stack=0x100000, sis=False,
+    # the GIO test EXE (file monitors, the zlib converters over libz.dll): installed for a run (loaded from RAM), not in the glib package
+    "phegiotest": dict(mmp=os.path.join(OS_ROOT, "src/phegiotest/phegiotest.mmp"), test=True, stack=0x100000,
                        x32_archives=[".hildon/libphegiotest.a"] + _RT, **_COMMON),
     "pheglibtest": dict(mmp=os.path.join(OS_ROOT, "src/pheglibtest/pheglibtest.mmp"), test=True, stack=0x100000,
                         rom_data=["resource\\pheglibtest\\" + _f + "=.hildon/testdata/" + _f for _f in ("keyfiletest.ini", "pages.ini", "keyfile.c")],
