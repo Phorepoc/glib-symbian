@@ -15,5 +15,5 @@ OS_LAYER_LIBC_SYSTEMINCLUDE
 SOURCEPATH		.
 SOURCE			phegio_dll.c
 SOURCE			phegio_notify.cpp
-LIBRARY			euser.lib efsrv.lib libc.lib libm.lib libpthread.lib libdl.lib pheglib.lib phegobject.lib phegmodule.lib phegthread.lib phepng.lib
+LIBRARY			euser.lib efsrv.lib libc.lib libm.lib libpthread.lib libdl.lib libz.lib pheglib.lib phegobject.lib phegmodule.lib phegthread.lib
 SMPSAFE
