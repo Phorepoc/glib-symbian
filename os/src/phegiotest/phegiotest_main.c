@@ -58,10 +58,35 @@ drive (gpointer d)
   return TRUE;
 }
 
+/* GIO's zlib converters (libz.dll): gzip a text through a GConverterOutputStream, gunzip it back, compare */
+static int
+zlib_roundtrip (void)
+{
+  GString *text = g_string_new (NULL); GError *err = NULL; int i, ok;
+  for (i = 0; i < 200; i++) g_string_append_printf (text, "line %d of the GIO zlib round trip\n", i);
+  GOutputStream *mem = g_memory_output_stream_new_resizable ();
+  GConverter *c = G_CONVERTER (g_zlib_compressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP, -1));
+  GOutputStream *zs = g_converter_output_stream_new (mem, c);
+  ok = g_output_stream_write_all (zs, text->str, text->len, NULL, NULL, &err) && g_output_stream_close (zs, NULL, &err);
+  gsize zlen = g_memory_output_stream_get_data_size (G_MEMORY_OUTPUT_STREAM (mem));
+  GInputStream *in = g_memory_input_stream_new_from_data (g_memory_output_stream_get_data (G_MEMORY_OUTPUT_STREAM (mem)), zlen, NULL);
+  GConverter *d = G_CONVERTER (g_zlib_decompressor_new (G_ZLIB_COMPRESSOR_FORMAT_GZIP));
+  GInputStream *us = g_converter_input_stream_new (in, d);
+  char *back = g_malloc0 (text->len + 64); gsize got = 0;
+  ok = ok && g_input_stream_read_all (us, back, text->len + 63, &got, NULL, &err);
+  ok = ok && got == text->len && memcmp (back, text->str, got) == 0 && zlen < text->len;
+  LOG ("[phegiotest] zlib round trip %s: %u bytes -> %u gzip -> %u%s%s", ok ? "OK" : "FAILED", (unsigned) text->len, (unsigned) zlen,
+       (unsigned) got, err ? " error: " : "", err ? err->message : "");
+  g_free (back); g_object_unref (us); g_object_unref (in); g_object_unref (zs); g_object_unref (mem);
+  g_object_unref (c); g_object_unref (d); g_string_free (text, TRUE); g_clear_error (&err);
+  return ok;
+}
+
 int
 phe_giotest_main (void)
 {
   GFile *f, *dir; GFileMonitor *fm, *dm; GError *err = NULL;
+  zlib_roundtrip ();
   g_mkdir_with_parents (DIR, 0755);
   file_path = g_strdup (DIR "/watched.conf"); new_path = g_strdup (DIR "/new.desktop");
   g_unlink (new_path); g_file_set_contents (file_path, "one\n", -1, NULL);
