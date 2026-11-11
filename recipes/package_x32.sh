@@ -7,13 +7,14 @@ CC=/wk/lsc/bin/pp-gcc; X=/wk/x32; S=/wk/glib-2.56.4; O=/o; mkdir -p $O /wk/out/t
 INC="-I$X -I$X/glib -I$S -I$S/glib -I$S/gobject -I$S/gmodule -I/wk/ffi-x32 -I/h/overlay -include /h/overlay/phe_glib_compat.h"
 CF="-O2 -g0 -w -fno-pic -DHAVE_CONFIG_H -DGLIB_STATIC_COMPILATION -DGOBJECT_STATIC_COMPILATION"
 $CC $CF $INC -c /h/overlay/phe_posix_stubs.c -o /wk/out/phe_posix_stubs.o || exit 1
+$CC $CF -c /h/overlay/phe_gio_stubs.c -o /wk/out/phe_gio_stubs.o || exit 1
 mk() { local a=$1; shift; rm -f $O/$a; ar rcs $O/$a "$@"; echo "$a: $(ar t $O/$a | wc -l) members"; }
 mk libpheglib.a /wk/out/phe_posix_stubs.o $X/glib/.libs/*.o $X/glib/deprecated/.libs/*.o $X/glib/libcharset/.libs/*.o $X/glib/gnulib/.libs/*.o $X/glib/pcre/.libs/*.o
 mk libphegobject.a $X/gobject/.libs/*.o
 mk libphegmodule.a $X/gmodule/.libs/*.o
 mk libphegthread.a $X/gthread/.libs/*.o
 mk libpheffi.a $(ls /wk/out/ffi/*.o | grep -v win64)
-[ -d $X/gio/.libs ] && mk libphegio.a $X/gio/.libs/*.o $X/gio/xdgmime/.libs/*.o $X/gio/gvdb/.libs/*.o
+[ -d $X/gio/.libs ] && mk libphegio.a /wk/out/phe_gio_stubs.o /wk/out/phe_posix_stubs.o $X/gio/.libs/*.o $X/gio/xdgmime/.libs/*.o $X/gio/gvdb/.libs/*.o
 true
 # the GModule backend test and the symbol tables (gen_symtab.py: resource/gmodule/<dll>.sym of every DLL of this repository + the test plug-in)
 mkdir -p /wk/out/gm $O/gmodule
