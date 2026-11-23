@@ -1,5 +1,5 @@
 glib-symbian: GLib 2.56, GObject, GModule, GThread and GIO: the C library that GTK, D-Bus and Hildon programs build on.
-Copyright The Phorepoc Authors (see AUTHORS). Our files (os/src, recipes, overlay, registry) are BSD-2-Clause (LICENSE).
+Copyright The Phorepoc Authors (see AUTHORS). Phorepoc's files (os/src, recipes, overlay, registry) are BSD-2-Clause (LICENSE).
 
 Libraries built here, each in its own replaceable DLL, downloaded and never copied into this repository (recipes/pins.sh); licence texts are in LICENSES/:
   - GLib, GObject, GModule, GThread, GIO: LGPL-2.1-or-later (LICENSES/glib-COPYING.txt)

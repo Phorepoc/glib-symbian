@@ -7,7 +7,7 @@
 
 Groundwork for the Hildon UI libraries on Phorepoc OS (PC image, x86-64 / x32 ABI). Plan and findings:
 `docs/phorepoc/hildon-port.md` in the Symbian-ReverseEngineered repo (section 7). Nothing here is in an OS image; Hildon is
-meant to be a Catalogue download. Licences: our recipes BSD-2-Clause; GLib/libhildon LGPL-2.1+, libffi MIT.
+meant to be a Catalogue download. Licences: Phorepoc's recipes BSD-2-Clause; GLib/libhildon LGPL-2.1+, libffi MIT.
 
 ## Decision
 GLib **2.56.4** (+ libffi 3.4.6), to be split into app-private DLLs with new names (`phegl*`) so the ROM's old ossrv glib is never
@@ -19,7 +19,7 @@ the ROM's old ossrv glib is untouched) and the console EXE `pheglibtest` linking
 GMainLoop + timeout, GObject subclass + signal, GThread, GKeyFile, GRegex (PCRE works; the earlier "failure" was a backslash lost in the test source),
 then glib/tests/hash.c: 12 cases OK, then `/hash/recursive-remove-all` aborts.
 That abort is a REAL limit, not a bug: `g_test_trap_subprocess()` needs pipe() + process spawn. Open C pipe() = `RPipe::Create` (kernel pipe
-device) fails ENOENT on our kernel, socketpair() EOPNOTSUPP; fork/exec do not exist (stubbed to ENOSYS in `overlay/phe_posix_stubs.c`; `posix_spawn`
+device) fails ENOENT on the Phorepoc kernel, socketpair() EOPNOTSUPP; fork/exec do not exist (stubbed to ENOSYS in `overlay/phe_posix_stubs.c`; `posix_spawn`
 is exported by libc and could back a g_spawn replacement once pipes exist). Starting the user-side LibCIpcServer does not help (tried).
 Fixes found by running: `STRERROR_R_CHAR_P` (glibc-only) made g_strerror return NULL; guniprop.c negative reloc addends (2 places);
 Open C `clock_gettime()` supports ONLY CLOCK_REALTIME and fills tv_nsec with microseconds (libc/src/clock_funcs.cpp), so GLib uses gettimeofday via the compat header.
@@ -117,7 +117,7 @@ Verdicts of the last boot (`test/boot-log-sweep.txt`; harness: pipes drained by 
 - **queue**: was never broken -- `/queue/random` runs 500,000 iterations with check_integrity() each (stack seen at the DUMP: `random_test` -> `check_integrity`), minutes under QEMU; the 100 s limit was the problem.
 - **keyfile**: `/keyfile/save` does `g_mkstemp ("key_file_XXXXXX")` in the CURRENT directory; the child's cwd is not writable on Open C. The harness now chdirs to the writable dir (`c:/data`); `TMPDIR` also points there (the default tmp dir `C:\Private\<sid>\tmp` does not exist).
 - **list**: failed in 3 earlier runs (`/list/double-free`: the grandchild's stderr did not match `*corrupted double-linked list detected*`) and passed in the last two with identical code: an intermittent result, cause not found (suspect the race between the grandchild's last stderr write and its exit; open).
-- **mainloop**: runs 20+ cases, then stops in `/mainloop/unix-fd`, which fills a pipe, then pushes 128 MiB through it with `g_unix_fd_add` on both ends (G_IO_OUT on the write end). Open C's kernel pipe is 512 bytes (`KDefaultPipeSz`), so that is 260,000+ select round trips; I believe it is plain slowness, not a hang, but it was not run long enough to show (not proven). Not ours to change in GLib; a longer limit (and a quiet QEMU) would tell.
+- **mainloop**: runs 20+ cases, then stops in `/mainloop/unix-fd`, which fills a pipe, then pushes 128 MiB through it with `g_unix_fd_add` on both ends (G_IO_OUT on the write end). Open C's kernel pipe is 512 bytes (`KDefaultPipeSz`), so that is 260,000+ select round trips; I believe it is plain slowness, not a hang, but it was not run long enough to show (not proven). Not something to change in GLib; a longer limit (and a quiet QEMU) would tell.
 - **build.sh from an empty volume** (final libc + harness, `VOL=hildon-wk4 CLEAN=1 SECS=1000 bash recipes/build.sh`): EXIT=0 and a boot with verdicts `queue/array/strfuncs/slist/list/hash PASS, keyfile FAIL (cwd, since fixed), mainloop TIMEOUT`; the keyfile fix was then verified with `iterate.sh` on the same volume.
 
 ## Tenth session (2026-11-07): the pipe size, mainloop, final run
@@ -140,7 +140,7 @@ Verdicts of the last boot (`test/boot-log-sweep.txt`; harness: pipes drained by 
 - Pango draws: root cause was `malloc()` returning 4-mod-8 blocks (RHybridHeap slab cells grow in 4-byte steps) while GLib's GData uses the low 3 bits of its pointer for lock flags. x32 fix in the main repo (`toolchain/shims/libc_alloc8/ualloc.cpp`, rounds requests to 8; needs a core port, and the ARM image has the same allocator). `pango/harfbuzz: 12 checks, 0 failures`, a 164x33 px layout, 989 dark pixels. See `docs/phorepoc/hildon-port.md` 7.7.4.
 
 ## GModule on this system (plug-ins loaded by name)
-GLib's `g_module_open` / `g_module_symbol` work, with a backend of our own (`overlay/phe_gmodule_symbian.c`, applied over `gmodule-dl.c` by `recipes/patch_glib.sh`; the RLibrary half is `os/src/phegmodule/phegmodule_rlib.cpp`), because Open C has no `dlopen` for E32 DLLs and our DLLs export by ordinal only (frozen `.def` files, `name @ N NONAME`).
+GLib's `g_module_open` / `g_module_symbol` work, with a Phorepoc backend (`overlay/phe_gmodule_symbian.c`, applied over `gmodule-dl.c` by `recipes/patch_glib.sh`; the RLibrary half is `os/src/phegmodule/phegmodule_rlib.cpp`), because Open C has no `dlopen` for E32 DLLs and Symbian DLLs export by ordinal only (frozen `.def` files, `name @ N NONAME`).
 - **Module file names.** `path/to/foo.so`, `foo.dll` or `foo` all mean the DLL `foo.dll`; the directory and the extension are ignored (the loader searches `\sys\bin` on every drive). `g_module_build_path (dir, name)` gives `dir/name.so`.
 - **Symbol names.** A DLL that wants `g_module_symbol (module, "name", &p)` ships a symbol table beside it: `resource/gmodule/<dll name without .dll>.sym` on any drive (z:, c:, e:, d:, f: in that order), text, one `name ordinal` per line (`#` comments). It is generated from the DLL's own `.def` by `recipes/gen_symtab.py <dll>.def <dll>.sym` (the package step of every repository that has DLLs runs it over its `os/src/*/*.def`; a plug-in installed from a SIS carries its `.sym` in `resource\gmodule\`). Without a table the DLL still loads and `g_module_symbol` answers "has no symbol table"; a name not in the table is "undefined symbol: name"; a stale table is caught when the ordinal is not exported.
 - **Limit.** `g_module_open (NULL)` (the main program, which GTK and GObject use for signal autoconnect and the like) works and gives a handle on which every lookup answers "undefined symbol": the symbols of an executable cannot be enumerated.
